@@ -6,7 +6,7 @@ let getHomePage = (req, res) => {
         function (err, results, fields) {
             console.log(results); // results contains rows returned by server
             let data = results;
-            return res.render('index.ejs', { dataUser: JSON.stringify(data) });
+            return res.render('index.ejs', { dataUser: data });
         }
     );
 }
