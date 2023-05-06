@@ -4,8 +4,12 @@ import initWebRouter from "./route/web.js"
 
 require('dotenv').config();
 
+
 const app = express()
 const port = process.env.PORT;
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 configViewEngine(app);
 initWebRouter(app);

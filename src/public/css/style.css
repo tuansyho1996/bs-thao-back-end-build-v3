@@ -43,3 +43,12 @@ td {
 tr:hover {
     background-color: coral;
 }
+
+.form-create-new-user label {
+    display: block;
+    margin-top: 10px;
+}
+
+.form-create-new-user {
+    text-align: center;
+}
