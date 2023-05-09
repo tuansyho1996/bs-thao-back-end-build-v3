@@ -67,3 +67,16 @@ tr:hover {
 .btn-submit {
     margin-top: 10px;
 }
+
+.topnav a {
+    background-color: #666;
+}
+
+.upload-image-container input {
+    display: block;
+    margin-top: 10px;
+}
+
+.upload-image-container {
+    padding: 15px;
+}
