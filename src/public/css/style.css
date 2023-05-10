@@ -73,7 +73,7 @@ tr:hover {
 }
 
 .upload-image-container input {
-    display: block;
+    /* display: block; */
     margin-top: 10px;
 }
 

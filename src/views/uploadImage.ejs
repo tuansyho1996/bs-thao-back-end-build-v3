@@ -14,16 +14,18 @@
         <a class="active" href="/upload-image">Upload image</a>
     </div>
     <div class="upload-image-container">
+        <h1>Handle File Uploads Use Express.js and Multer</h1>
         <form action="/upload-single-image" method="POST" enctype="multipart/form-data">
-            <div>
-                <label>Select your profile picture:</label>
-                <input type="file" id="myFile" name="profile_pic">
-            </div>
+            <h2>Upload Single File</h2>
+            <label>Select your profile picture:</label>
+            <input type="file" id="myFile" name="profile_pic">
             <div>
                 <input type="submit">
             </div>
         </form>
+        <hr>
         <form method="POST" action="/upload-multiple-images" enctype="multipart/form-data">
+            <h2>Upload Multiple Files</h2>
             <div>
                 <label>Select multiple images:</label>
                 <input type="file" name="multiple_images" multiple />
