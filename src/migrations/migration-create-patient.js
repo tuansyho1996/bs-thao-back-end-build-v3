@@ -29,6 +29,18 @@ module.exports = {
       reasonMedicalTreatment: {
         type: Sequelize.TEXT
       },
+      symptoms: {
+        type: Sequelize.TEXT
+      },
+      diagnostic: {
+        type: Sequelize.TEXT
+      },
+      bloodTest: {
+        type: Sequelize.TEXT
+      },
+      sputumTest: {
+        type: Sequelize.TEXT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -60,9 +60,39 @@ let handleEditPatient = (patient) => {
     }
   })
 }
+let handleAddMedicalTreatmentPatient = (medicalTreatment) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await db.Patient.update(medicalTreatment, { where: { id: medicalTreatment.id } });
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+let handleAddConsiderPatient = (consider) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await db.Patient.update(consider, { where: { id: consider.id } });
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
 module.exports = {
   handleCreatePatient,
   handleFetchPatient,
   handleDeletePatient,
-  handleEditPatient
+  handleEditPatient,
+  handleAddMedicalTreatmentPatient,
+  handleAddConsiderPatient
 }

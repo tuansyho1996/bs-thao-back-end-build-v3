@@ -1,6 +1,6 @@
 'use strict';
 const {
-    Model
+    Model, TEXT
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Patient extends Model {
@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         address: DataTypes.STRING,
         birthdate: DataTypes.STRING,
         gender: DataTypes.STRING,
-        reasonMedicalTreatment: DataTypes.TEXT
+        reasonMedicalTreatment: DataTypes.TEXT,
+        symptoms: DataTypes.TEXT,
+        diagnostic: DataTypes.TEXT,
+        bloodTest: DataTypes.TEXT,
+        sputumTest: DataTypes.TEXT
     }, {
         sequelize,
         modelName: 'Patient',

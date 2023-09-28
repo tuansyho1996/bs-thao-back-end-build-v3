@@ -1,4 +1,8 @@
-import { handleCreatePatient, handleFetchPatient, handleDeletePatient, handleEditPatient } from '../services/patientService'
+import {
+  handleCreatePatient, handleFetchPatient, handleDeletePatient,
+  handleEditPatient, handleAddMedicalTreatmentPatient,
+  handleAddConsiderPatient
+} from '../services/patientService'
 
 let createPatient = async (req, res) => {
   try {
@@ -36,10 +40,29 @@ let editPatient = async (req, res) => {
     console.log(e)
   }
 }
-
+let addMedicalTreatmentPatient = async (req, res) => {
+  try {
+    let responsive = await handleAddMedicalTreatmentPatient(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+let addconsiderPatient = async (req, res) => {
+  try {
+    let responsive = await handleAddConsiderPatient(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
 module.exports = {
   createPatient,
   fetchPatient,
   deletePatient,
-  editPatient
+  editPatient,
+  addMedicalTreatmentPatient,
+  addconsiderPatient
 }
