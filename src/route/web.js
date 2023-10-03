@@ -13,6 +13,11 @@ const initWebRouter = (app) => {
     router.put('/api/edit-patient', patientController.editPatient);
     router.put('/api/add-medical-treatment-patient', patientController.addMedicalTreatmentPatient);
     router.put('/api/add-consider-patient', patientController.addconsiderPatient);
+    router.get('/api/fetch-medicine', patientController.fetchMedicine);
+    router.post('/api/create-medicine', patientController.createMedicine);
+    router.put('/api/edit-medicine', patientController.editMedicine);
+    router.delete('/api/delete-medicine/:id', patientController.deleteMedicine);
+    router.post('/api/add-prescription', patientController.addPrescription);
 
 
     return app.use('/', router);

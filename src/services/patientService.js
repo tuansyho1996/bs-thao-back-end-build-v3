@@ -20,7 +20,13 @@ let handleCreatePatient = (data) => {
 let handleFetchPatient = () => {
   return new Promise(async (resovle, reject) => {
     try {
-      let res = await db.Patient.findAll();
+      let res = await db.Patient.findAll({
+        include: [
+          { model: db.Prescription },
+        ],
+        raw: true,
+        nest: true
+      });
       resovle({
         errorCode: 0,
         message: 'ok',
@@ -88,11 +94,87 @@ let handleAddConsiderPatient = (consider) => {
     }
   })
 }
+let handleFetchMedicine = () => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let res = await db.Medicine.findAll();
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+        res
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+let handleCreateMedicine = (medicine) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await db.Medicine.create(medicine);
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+let handleEditMedicine = (medicine) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await db.Medicine.update(medicine, { where: { id: medicine.id } });
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+let handleDeleteMedicine = (id) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await db.Medicine.destroy({ where: { id } });
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+let handleAddPrescription = (prescription) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+
+      const findPrescription = await db.Prescription.findOne({ where: { patientId: prescription.patientId } })
+      if (findPrescription === null) {
+        await db.Prescription.create(prescription)
+      }
+      else {
+        await db.Prescription.update(prescription, { where: { patientId: prescription.patientId } })
+      }
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
 module.exports = {
-  handleCreatePatient,
-  handleFetchPatient,
-  handleDeletePatient,
-  handleEditPatient,
-  handleAddMedicalTreatmentPatient,
-  handleAddConsiderPatient
+  handleCreatePatient, handleFetchPatient, handleDeletePatient,
+  handleEditPatient, handleAddMedicalTreatmentPatient,
+  handleAddConsiderPatient, handleFetchMedicine, handleCreateMedicine,
+  handleEditMedicine, handleDeleteMedicine, handleAddPrescription
 }

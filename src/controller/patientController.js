@@ -1,7 +1,9 @@
 import {
   handleCreatePatient, handleFetchPatient, handleDeletePatient,
   handleEditPatient, handleAddMedicalTreatmentPatient,
-  handleAddConsiderPatient
+  handleAddConsiderPatient, handleFetchMedicine,
+  handleCreateMedicine, handleEditMedicine,
+  handleDeleteMedicine, handleAddPrescription
 } from '../services/patientService'
 
 let createPatient = async (req, res) => {
@@ -58,11 +60,54 @@ let addconsiderPatient = async (req, res) => {
     console.log(e)
   }
 }
+let fetchMedicine = async (req, res) => {
+  try {
+    let responsive = await handleFetchMedicine();
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+let createMedicine = async (req, res) => {
+  try {
+    let responsive = await handleCreateMedicine(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+let editMedicine = async (req, res) => {
+  try {
+    let responsive = await handleEditMedicine(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+let deleteMedicine = async (req, res) => {
+  try {
+    let responsive = await handleDeleteMedicine(req.params.id);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+let addPrescription = async (req, res) => {
+  try {
+    let responsive = await handleAddPrescription(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
 module.exports = {
-  createPatient,
-  fetchPatient,
-  deletePatient,
-  editPatient,
-  addMedicalTreatmentPatient,
-  addconsiderPatient
+  createPatient, fetchPatient, deletePatient, editPatient,
+  addMedicalTreatmentPatient, addconsiderPatient,
+  fetchMedicine, createMedicine, editMedicine,
+  deleteMedicine, addPrescription
 }
