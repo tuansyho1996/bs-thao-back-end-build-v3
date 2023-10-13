@@ -41,6 +41,12 @@ module.exports = {
       sputumTest: {
         type: Sequelize.TEXT
       },
+      supersonicType: {
+        type: Sequelize.STRING
+      },
+      supersonicDiagnosis: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

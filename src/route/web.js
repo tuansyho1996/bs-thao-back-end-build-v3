@@ -18,6 +18,8 @@ const initWebRouter = (app) => {
     router.put('/api/edit-medicine', patientController.editMedicine);
     router.delete('/api/delete-medicine/:id', patientController.deleteMedicine);
     router.post('/api/add-prescription', patientController.addPrescription);
+    router.put('/api/add-supersonic-patient', patientController.addSupersonic);
+    router.put('/api/add-quantity-medicine', patientController.addQuantityMedicine);
 
 
     return app.use('/', router);

@@ -156,12 +156,53 @@ let handleAddPrescription = (prescription) => {
     try {
 
       const findPrescription = await db.Prescription.findOne({ where: { patientId: prescription.patientId } })
+
       if (findPrescription === null) {
-        await db.Prescription.create(prescription)
+        await db.Prescription.create(prescription);
+        for (const property in prescription) {
+          if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
+            const number = property.substring(property.length - 1);
+            const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } })
+            const quantityUpdate = findMedicine.quantity - prescription[`quantityMedicine_${number}`];
+            await db.Medicine.update({ quantity: quantityUpdate }, { where: { name: prescription[property] } })
+          }
+        }
+        resovle({
+          errorCode: 0,
+          message: 'ok',
+        })
       }
       else {
-        await db.Prescription.update(prescription, { where: { patientId: prescription.patientId } })
+        for (const property in prescription) {
+          if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
+            const number = property.substring(property.length - 1);
+            if (prescription[`quantityMedicine_${number}`] && prescription[property]) {
+              console.log(property, prescription[property])
+              await db.Prescription.update({ [property]: prescription[property], [`quantityMedicine_${number}`]: prescription[`quantityMedicine_${number}`] }, { where: { patientId: prescription.patientId } });
+              const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } });
+              if (findMedicine) {
+                const quantityUpdate = findMedicine.quantity - prescription[`quantityMedicine_${number}`] + findPrescription[`quantityMedicine_${number}`];
+                await db.Medicine.update({ quantity: quantityUpdate }, { where: { name: prescription[property] } })
+                // console.log(property)
+                resovle({
+                  errorCode: 0,
+                  message: 'ok',
+                })
+              }
+            }
+          }
+        }
       }
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+let handleAddSupersonic = (supersonic) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await db.Patient.update(supersonic, { where: { id: supersonic.id } });
       resovle({
         errorCode: 0,
         message: 'ok',
@@ -172,9 +213,32 @@ let handleAddPrescription = (prescription) => {
     }
   })
 }
+let handleAddQuantityMedicine = (medicine) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let findMedicine = await db.Medicine.findOne({ where: { id: medicine.id } });
+      if (findMedicine === null) {
+        console.log(`'can't not found medicine`)
+      }
+      else {
+        medicine.quantity += findMedicine.quantity
+        await db.Medicine.update({ quantity: medicine.quantity }, { where: { id: medicine.id } })
+        resovle({
+          errorCode: 0,
+          message: 'ok',
+        })
+      }
+
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
 module.exports = {
   handleCreatePatient, handleFetchPatient, handleDeletePatient,
   handleEditPatient, handleAddMedicalTreatmentPatient,
   handleAddConsiderPatient, handleFetchMedicine, handleCreateMedicine,
-  handleEditMedicine, handleDeleteMedicine, handleAddPrescription
+  handleEditMedicine, handleDeleteMedicine, handleAddPrescription,
+  handleAddSupersonic, handleAddQuantityMedicine
 }
