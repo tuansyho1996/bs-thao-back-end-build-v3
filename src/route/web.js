@@ -20,6 +20,9 @@ const initWebRouter = (app) => {
     router.post('/api/add-prescription', patientController.addPrescription);
     router.put('/api/add-supersonic-patient', patientController.addSupersonic);
     router.put('/api/add-quantity-medicine', patientController.addQuantityMedicine);
+    router.get('/api/fetch-prescription', patientController.fetchPrescription);
+
+
 
 
     return app.use('/', router);

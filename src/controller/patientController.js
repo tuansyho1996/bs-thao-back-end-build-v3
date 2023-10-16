@@ -4,7 +4,7 @@ import {
   handleAddConsiderPatient, handleFetchMedicine,
   handleCreateMedicine, handleEditMedicine,
   handleDeleteMedicine, handleAddPrescription, handleAddSupersonic,
-  handleAddQuantityMedicine
+  handleAddQuantityMedicine, handleFetchPrescription
 } from '../services/patientService'
 
 let createPatient = async (req, res) => {
@@ -124,10 +124,19 @@ let addQuantityMedicine = async (req, res) => {
     console.log(e)
   }
 }
+let fetchPrescription = async (req, res) => {
+  try {
+    let responsive = await handleFetchPrescription();
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
 module.exports = {
   createPatient, fetchPatient, deletePatient, editPatient,
   addMedicalTreatmentPatient, addconsiderPatient,
   fetchMedicine, createMedicine, editMedicine,
   deleteMedicine, addPrescription, addSupersonic,
-  addQuantityMedicine
+  addQuantityMedicine, fetchPrescription
 }
