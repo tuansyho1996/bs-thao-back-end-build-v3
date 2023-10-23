@@ -1,5 +1,6 @@
 import express from "express";
 import patientController from "../controller/patientController"
+import userController from "../controller/userController"
 
 
 
@@ -21,6 +22,8 @@ const initWebRouter = (app) => {
     router.put('/api/add-supersonic-patient', patientController.addSupersonic);
     router.put('/api/add-quantity-medicine', patientController.addQuantityMedicine);
     router.get('/api/fetch-prescription', patientController.fetchPrescription);
+    router.post('/api/create-user', userController.createUser);
+    router.post('/api/login-user', userController.loginUser);
 
 
 
