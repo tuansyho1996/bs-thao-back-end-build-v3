@@ -1,6 +1,8 @@
 import express from "express";
 import patientController from "../controller/patientController"
 import userController from "../controller/userController"
+import considerController from "../controller/considerController"
+import patientConsiderController from "../controller/patientConsiderController"
 
 
 
@@ -24,7 +26,11 @@ const initWebRouter = (app) => {
     router.get('/api/fetch-prescription', patientController.fetchPrescription);
     router.post('/api/create-user', userController.createUser);
     router.post('/api/login-user', userController.loginUser);
-
+    router.get('/api/fetch-consider', considerController.fetchConsider);
+    router.post('/api/create-consider', considerController.createConsider);
+    router.put('/api/edit-consider', considerController.editConsider);
+    router.delete('/api/delete-consider/:id', considerController.deleteConsider);
+    router.post('/api/add-update-consider-patient', patientConsiderController.addOrUpdatePatientConsiders);
 
 
 
