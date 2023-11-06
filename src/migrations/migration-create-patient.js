@@ -47,6 +47,9 @@ module.exports = {
       supersonicDiagnosis: {
         type: Sequelize.STRING
       },
+      dateReExamination: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

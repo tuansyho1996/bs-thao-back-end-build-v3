@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
         bloodTest: DataTypes.TEXT,
         sputumTest: DataTypes.TEXT,
         supersonicType: DataTypes.STRING,
-        supersonicDiagnosis: DataTypes.STRING
+        supersonicDiagnosis: DataTypes.STRING,
+        dateReExamination: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Patient',

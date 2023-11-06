@@ -1,3 +1,4 @@
+import { where } from 'sequelize';
 import db from '../models/index.js'
 import _ from 'lodash'
 
@@ -385,10 +386,38 @@ let handleFetchPrescription = () => {
     }
   })
 }
+let handlefetchDetailPatient = (id) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let res = await db.Patient.findOne(
+        {
+          where: {
+            id
+          },
+          include: [
+            { model: db.Prescription },
+            { model: db.PatientConsider },
+          ],
+          raw: true,
+          nest: true
+        }
+      );
+      resovle({
+        errorCode: 0,
+        message: 'ok',
+        res: res
+      })
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
 module.exports = {
   handleCreatePatient, handleFetchPatient, handleDeletePatient,
   handleEditPatient, handleAddMedicalTreatmentPatient,
   handleAddConsiderPatient, handleFetchMedicine, handleCreateMedicine,
   handleEditMedicine, handleDeleteMedicine, handleAddPrescription,
-  handleAddSupersonic, handleAddQuantityMedicine, handleFetchPrescription
+  handleAddSupersonic, handleAddQuantityMedicine, handleFetchPrescription,
+  handlefetchDetailPatient
 }

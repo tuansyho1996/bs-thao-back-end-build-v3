@@ -3,6 +3,8 @@ import patientController from "../controller/patientController"
 import userController from "../controller/userController"
 import considerController from "../controller/considerController"
 import patientConsiderController from "../controller/patientConsiderController"
+import supersonicController from "../controller/supersonicController"
+import feeServiceOtherController from "../controller/feeServiceOtherController"
 
 
 
@@ -31,6 +33,16 @@ const initWebRouter = (app) => {
     router.put('/api/edit-consider', considerController.editConsider);
     router.delete('/api/delete-consider/:id', considerController.deleteConsider);
     router.post('/api/add-update-consider-patient', patientConsiderController.addOrUpdatePatientConsiders);
+    router.post('/api/create-supersonic', supersonicController.createSupersonic);
+    router.get('/api/fetch-supersonic', supersonicController.fetchSupersonic);
+    router.put('/api/edit-supersonic', supersonicController.editSupersonic);
+    router.delete('/api/delete-supersonic/:id', supersonicController.deleteSupersonic);
+    router.get('/api/fetch-detail-patient/:id', patientController.fetchDetailPatient);
+    router.get('/api/fetch-fee-service-other', feeServiceOtherController.fetchFeeServiceOther);
+    router.post('/api/create-fee-service-other', feeServiceOtherController.createFeeServiceOther);
+    router.put('/api/edit-fee-service-other', feeServiceOtherController.editFeeServiceOther);
+    router.delete('/api/delete-fee-service-other/:id', feeServiceOtherController.deleteFeeServiceOther);
+
 
 
 
