@@ -1,6 +1,7 @@
 import {
   handlefetchFeeServiceOther, handleCreateFeeServiceOther,
-  handleEditFeeServiceOther, handleDeleteFeeServiceOther
+  handleEditFeeServiceOther, handleDeleteFeeServiceOther,
+  handleAddUpdateEcgPatient, handleAddUpdateObstetricMonitoringPatient
 } from '../services/feeServiceOtherService'
 
 
@@ -44,7 +45,39 @@ let deleteFeeServiceOther = async (req, res) => {
     console.log(e)
   }
 }
+
+let addUpdateEcgPatient = async (req, res) => {
+  try {
+    let responsive = await handleAddUpdateEcgPatient(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+
+let addUpdateObstetricMonitoringPatient = async (req, res) => {
+  try {
+    let responsive = await handleAddUpdateObstetricMonitoringPatient(req.body);
+    res.status(200).json(responsive)
+  }
+  catch (e) {
+    console.log(e)
+  }
+}
+
+// let fetchEcgPatient = async (req, res) => {
+//   try {
+//     let responsive = await handleFetchEcgPatient();
+//     res.status(200).json(responsive)
+//   }
+//   catch (e) {
+//     console.log(e)
+//   }
+// }
+
 module.exports = {
   fetchFeeServiceOther, createFeeServiceOther,
-  editFeeServiceOther, deleteFeeServiceOther
+  editFeeServiceOther, deleteFeeServiceOther,
+  addUpdateEcgPatient, addUpdateObstetricMonitoringPatient
 }

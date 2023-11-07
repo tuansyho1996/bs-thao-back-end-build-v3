@@ -62,7 +62,76 @@ let handleDeleteFeeServiceOther = (id) => {
   })
 }
 
+let handleAddUpdateEcgPatient = (data) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let isEcgPatient = await db.Ecg.findOne({ where: { patientId: data.patientId } });
+      if (isEcgPatient) {
+        await db.Ecg.update(data, { where: { patientId: data.patientId } })
+        resovle({
+          errorCode: 0,
+          message: 'ok',
+        })
+      }
+      else {
+        await db.Ecg.create(data)
+        resovle({
+          errorCode: 0,
+          message: 'ok',
+        })
+      }
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+
+let handleAddUpdateObstetricMonitoringPatient = (data) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      console.log(data)
+      let isObstetricMonitoringPatient = await db.ObstetricMonitoring.findOne({ where: { patientId: data.patientId } });
+      console.log(isObstetricMonitoringPatient)
+      if (isObstetricMonitoringPatient) {
+        await db.ObstetricMonitoring.update(data, { where: { patientId: data.patientId } })
+        resovle({
+          errorCode: 0,
+          message: 'ok',
+        })
+      }
+      else {
+        await db.ObstetricMonitoring.create(data)
+        resovle({
+          errorCode: 0,
+          message: 'ok',
+        })
+      }
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
+}
+
+// let fetchEcgPatient = () => {
+//   return new Promise(async (resovle, reject) => {
+//     try {
+//       let res = await db.Ecg.findAll();
+//       resovle({
+//         errorCode: 0,
+//         message: 'ok',
+//         res
+//       })
+//     }
+//     catch (e) {
+//       reject(e)
+//     }
+//   })
+// }
+
 module.exports = {
   handlefetchFeeServiceOther, handleCreateFeeServiceOther,
-  handleEditFeeServiceOther, handleDeleteFeeServiceOther
+  handleEditFeeServiceOther, handleDeleteFeeServiceOther,
+  handleAddUpdateEcgPatient, handleAddUpdateObstetricMonitoringPatient
 }

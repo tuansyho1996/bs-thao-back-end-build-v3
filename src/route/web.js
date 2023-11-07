@@ -42,6 +42,13 @@ const initWebRouter = (app) => {
     router.post('/api/create-fee-service-other', feeServiceOtherController.createFeeServiceOther);
     router.put('/api/edit-fee-service-other', feeServiceOtherController.editFeeServiceOther);
     router.delete('/api/delete-fee-service-other/:id', feeServiceOtherController.deleteFeeServiceOther);
+    // router.get('/api/api/fetch-ecg', feeServiceOtherController.fetchEcgPatient);
+    router.post('/api/add-update-ecg-patient', feeServiceOtherController.addUpdateEcgPatient);
+    router.post('/api/add-update-obstetric-monitoring-patient', feeServiceOtherController.addUpdateObstetricMonitoringPatient);
+
+
+
+
 
 
 
