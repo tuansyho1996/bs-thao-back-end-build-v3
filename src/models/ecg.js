@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     patientId: DataTypes.INTEGER,
     statusUse: DataTypes.BOOLEAN,
     result: DataTypes.STRING,
+    price: DataTypes.INTEGER,
+
   }, {
     sequelize,
     modelName: 'Ecg',

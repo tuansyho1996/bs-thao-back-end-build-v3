@@ -13,8 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Patient.hasOne(models.Prescription, { foreignKey: 'patientId' })
             Patient.hasOne(models.PatientConsider, { foreignKey: 'patientId' })
+            Patient.hasOne(models.PatientSupersonic, { foreignKey: 'patientId' })
             Patient.hasOne(models.Ecg, { foreignKey: 'patientId' })
             Patient.hasOne(models.ObstetricMonitoring, { foreignKey: 'patientId' })
+            Patient.hasOne(models.PatientPrecedureFee, { foreignKey: 'patientId' })
         }
     };
     Patient.init({
@@ -27,10 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         reasonMedicalTreatment: DataTypes.TEXT,
         symptoms: DataTypes.TEXT,
         diagnostic: DataTypes.TEXT,
-        bloodTest: DataTypes.TEXT,
-        sputumTest: DataTypes.TEXT,
-        supersonicType: DataTypes.STRING,
-        supersonicDiagnosis: DataTypes.STRING,
         dateReExamination: DataTypes.STRING
     }, {
         sequelize,

@@ -66,6 +66,8 @@ let handleAddUpdateEcgPatient = (data) => {
   return new Promise(async (resovle, reject) => {
     try {
       let isEcgPatient = await db.Ecg.findOne({ where: { patientId: data.patientId } });
+      const findEcg = await db.Supersonic.findOne({ where: { id: 2 } });
+      data.price = findEcg.price
       if (isEcgPatient) {
         await db.Ecg.update(data, { where: { patientId: data.patientId } })
         resovle({
@@ -90,9 +92,9 @@ let handleAddUpdateEcgPatient = (data) => {
 let handleAddUpdateObstetricMonitoringPatient = (data) => {
   return new Promise(async (resovle, reject) => {
     try {
-      console.log(data)
       let isObstetricMonitoringPatient = await db.ObstetricMonitoring.findOne({ where: { patientId: data.patientId } });
-      console.log(isObstetricMonitoringPatient)
+      const findObstetricMonitoring = await db.Supersonic.findOne({ where: { id: 3 } });
+      data.price = findObstetricMonitoring.price
       if (isObstetricMonitoringPatient) {
         await db.ObstetricMonitoring.update(data, { where: { patientId: data.patientId } })
         resovle({

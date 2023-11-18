@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ObstetricMonitorings', {
+    await queryInterface.createTable('PatientSupersonics', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,11 +11,11 @@ module.exports = {
       patientId: {
         type: Sequelize.INTEGER
       },
-      result: {
+      supersonicType: {
         type: Sequelize.STRING
       },
-      statusUse: {
-        type: Sequelize.BOOLEAN
+      supersonicDiagnosis: {
+        type: Sequelize.STRING
       },
       price: {
         type: Sequelize.INTEGER
@@ -31,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ObstetricMonitorings');
+    await queryInterface.dropTable('PatientSupersonics');
   }
 };

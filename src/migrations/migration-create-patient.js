@@ -35,18 +35,6 @@ module.exports = {
       diagnostic: {
         type: Sequelize.TEXT
       },
-      bloodTest: {
-        type: Sequelize.TEXT
-      },
-      sputumTest: {
-        type: Sequelize.TEXT
-      },
-      supersonicType: {
-        type: Sequelize.STRING
-      },
-      supersonicDiagnosis: {
-        type: Sequelize.STRING
-      },
       dateReExamination: {
         type: Sequelize.STRING
       },

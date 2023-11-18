@@ -25,8 +25,10 @@ let handleFetchPatient = () => {
         include: [
           { model: db.Prescription },
           { model: db.PatientConsider },
+          { model: db.PatientSupersonic },
           { model: db.Ecg },
           { model: db.ObstetricMonitoring },
+          { model: db.PatientPrecedureFee },
         ],
         order: [
           ['id', 'DESC'],

@@ -3,7 +3,7 @@ import {
   handleEditPatient, handleAddMedicalTreatmentPatient,
   handleAddConsiderPatient, handleFetchMedicine,
   handleCreateMedicine, handleEditMedicine,
-  handleDeleteMedicine, handleAddPrescription, handleAddSupersonic,
+  handleDeleteMedicine, handleAddPrescription,
   handleAddQuantityMedicine, handleFetchPrescription,
   handlefetchDetailPatient
 } from '../services/patientService'
@@ -107,15 +107,7 @@ let addPrescription = async (req, res) => {
     console.log(e)
   }
 }
-let addSupersonic = async (req, res) => {
-  try {
-    let responsive = await handleAddSupersonic(req.body);
-    res.status(200).json(responsive)
-  }
-  catch (e) {
-    console.log(e)
-  }
-}
+
 let addQuantityMedicine = async (req, res) => {
   try {
     let responsive = await handleAddQuantityMedicine(req.body);
@@ -147,6 +139,6 @@ module.exports = {
   createPatient, fetchPatient, deletePatient, editPatient,
   addMedicalTreatmentPatient, addconsiderPatient,
   fetchMedicine, createMedicine, editMedicine,
-  deleteMedicine, addPrescription, addSupersonic,
+  deleteMedicine, addPrescription,
   addQuantityMedicine, fetchPrescription, fetchDetailPatient
 }

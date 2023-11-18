@@ -5,6 +5,8 @@ import considerController from "../controller/considerController"
 import patientConsiderController from "../controller/patientConsiderController"
 import supersonicController from "../controller/supersonicController"
 import feeServiceOtherController from "../controller/feeServiceOtherController"
+import precedureFeeController from "../controller/precedureFeeController"
+import patientSupersonicController from "../controller/patientSupersonicController"
 
 
 
@@ -23,7 +25,7 @@ const initWebRouter = (app) => {
     router.put('/api/edit-medicine', patientController.editMedicine);
     router.delete('/api/delete-medicine/:id', patientController.deleteMedicine);
     router.post('/api/add-prescription', patientController.addPrescription);
-    router.put('/api/add-supersonic-patient', patientController.addSupersonic);
+    router.post('/api/add-update-supersonic-patient', patientSupersonicController.addSupersonic);
     router.put('/api/add-quantity-medicine', patientController.addQuantityMedicine);
     router.get('/api/fetch-prescription', patientController.fetchPrescription);
     router.post('/api/create-user', userController.createUser);
@@ -42,9 +44,21 @@ const initWebRouter = (app) => {
     router.post('/api/create-fee-service-other', feeServiceOtherController.createFeeServiceOther);
     router.put('/api/edit-fee-service-other', feeServiceOtherController.editFeeServiceOther);
     router.delete('/api/delete-fee-service-other/:id', feeServiceOtherController.deleteFeeServiceOther);
-    // router.get('/api/api/fetch-ecg', feeServiceOtherController.fetchEcgPatient);
     router.post('/api/add-update-ecg-patient', feeServiceOtherController.addUpdateEcgPatient);
     router.post('/api/add-update-obstetric-monitoring-patient', feeServiceOtherController.addUpdateObstetricMonitoringPatient);
+    router.get('/api/fetch-precedure-fee', precedureFeeController.fetchPrecedureFee);
+    router.post('/api/create-precedure-fee', precedureFeeController.createPrecedureFee);
+    router.put('/api/edit-precedure-fee', precedureFeeController.editPrecedureFee);
+    router.delete('/api/delete-precedure-fee/:id', precedureFeeController.deletePrecedureFee);
+    router.post('/api/add-update-precedure-fee-patient', precedureFeeController.addUpdatePrecedureFeePatient);
+    router.get('/api/fetch-precedure-fee-and-examination-fee', precedureFeeController.fetchPrecedureFeeAndExaminationFee);
+
+
+
+
+
+
+
 
 
 
