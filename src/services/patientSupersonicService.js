@@ -4,11 +4,16 @@ import _ from 'lodash'
 let handleAddSupersonic = (data) => {
   return new Promise(async (resovle, reject) => {
     try {
-      console.log(data)
       let patientSupersonicDb = await db.PatientSupersonic.findOne({ where: { patientId: data.patientId } })
       if (patientSupersonicDb) {
         const supersonicType = await db.Supersonic.findOne({ where: { name: data.supersonicType } });
-        data.price = supersonicType.price
+        if (supersonicType) {
+          data.price = supersonicType.price
+        }
+        else {
+          data.price = 0
+
+        }
         await db.PatientSupersonic.update(data, { where: { patientId: data.patientId } })
         resovle({
           errorCode: 0,

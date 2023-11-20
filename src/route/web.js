@@ -7,6 +7,7 @@ import supersonicController from "../controller/supersonicController"
 import feeServiceOtherController from "../controller/feeServiceOtherController"
 import precedureFeeController from "../controller/precedureFeeController"
 import patientSupersonicController from "../controller/patientSupersonicController"
+import testConsiderController from "../controller/testConsiderController"
 
 
 
@@ -52,10 +53,10 @@ const initWebRouter = (app) => {
     router.delete('/api/delete-precedure-fee/:id', precedureFeeController.deletePrecedureFee);
     router.post('/api/add-update-precedure-fee-patient', precedureFeeController.addUpdatePrecedureFeePatient);
     router.get('/api/fetch-precedure-fee-and-examination-fee', precedureFeeController.fetchPrecedureFeeAndExaminationFee);
-
-
-
-
+    router.get('/api/fetch-test-consider', testConsiderController.fetchTestConsider);
+    router.post('/api/create-test-consider', testConsiderController.createTestConsider);
+    router.put('/api/edit-test-consider', testConsiderController.editTestConsider);
+    router.get('/api/fetch-consider-and-test-consider', testConsiderController.fetchConsiderAndTestConsider);
 
 
 

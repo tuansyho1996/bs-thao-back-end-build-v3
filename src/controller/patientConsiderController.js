@@ -1,12 +1,12 @@
 import {
-  handleaddOrUpdatePatientConsiders,
+  handleAddOrUpdatePatientConsiders,
 } from '../services/patientConsiderSevice'
 
 
 
 let addOrUpdatePatientConsiders = async (req, res) => {
   try {
-    let responsive = await handleaddOrUpdatePatientConsiders(req.body);
+    let responsive = await handleAddOrUpdatePatientConsiders(req.body);
     res.status(200).json(responsive)
   }
   catch (e) {
