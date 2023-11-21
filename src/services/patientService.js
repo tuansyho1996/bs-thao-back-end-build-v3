@@ -175,9 +175,7 @@ let handleAddPrescription = (prescription) => {
           const number = property.substring(property.length - 1);
           if (prescription[`quantityMedicine_${number}`] && prescription[property]) {
             const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } });
-            console.log(prescription[`quantityMedicine_${number}`] - findPrescription[`quantityMedicine_${number}`], prescription[property])
             if (prescription[`quantityMedicine_${number}`] > findPrescription[`quantityMedicine_${number}`]) {
-              console.log('check null prescription', prescription[property])
               if (findMedicine.quantity < (prescription[`quantityMedicine_${number}`] - findPrescription[`quantityMedicine_${number}`])) {
                 errorNotEnough = true;
                 arrayMedicineNotEnough.push(prescription[property])
