@@ -163,57 +163,60 @@ let handleDeleteMedicine = (id) => {
 let handleAddPrescription = (prescription) => {
   return new Promise(async (resovle, reject) => {
     try {
-      const findPrescription = await db.Prescription.findOne({ where: { patientId: prescription.patientId } })
 
       //create prescription
       let quantityUpdate;
       let errorNotEnough = false;
-      if (findPrescription === null) {
-        for (const property in prescription) {
-          if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
-            const number = property.substring(property.length - 1);
-            const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } })
-            if (findMedicine.quantity < prescription[`quantityMedicine_${number}`]) {
-              errorNotEnough = true
+      let arrayMedicineNotEnough = []
+      const findPrescription = await db.Prescription.findOne({ where: { patientId: prescription.patientId } })
+
+      for (const property in prescription) {
+        if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
+          const number = property.substring(property.length - 1);
+          if (prescription[`quantityMedicine_${number}`] && prescription[property]) {
+            const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } });
+            console.log(prescription[`quantityMedicine_${number}`] - findPrescription[`quantityMedicine_${number}`], prescription[property])
+            if (prescription[`quantityMedicine_${number}`] > findPrescription[`quantityMedicine_${number}`]) {
+              console.log('check null prescription', prescription[property])
+              if (findMedicine.quantity < (prescription[`quantityMedicine_${number}`] - findPrescription[`quantityMedicine_${number}`])) {
+                errorNotEnough = true;
+                arrayMedicineNotEnough.push(prescription[property])
+              }
             }
-            else {
+          }
+        }
+      }
+      if (errorNotEnough) {
+        resovle({
+          errorCode: 1,
+          message: `không đủ thuốc ${arrayMedicineNotEnough.join(',')}`,
+        })
+      }
+      else {
+
+        if (findPrescription === null) {
+          for (const property in prescription) {
+            if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
+              const number = property.substring(property.length - 1);
+              const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } })
               quantityUpdate = findMedicine.quantity - prescription[`quantityMedicine_${number}`];
               await db.Medicine.update({ quantity: quantityUpdate }, { where: { name: prescription[property] } })
             }
           }
-        }
-        if (errorNotEnough) {
-          resovle({
-            errorCode: 1,
-            message: `không đủ thuốc`,
-          })
-        }
-        else {
           await db.Prescription.create(prescription);
           resovle({
             errorCode: 0,
             message: 'ok',
           })
         }
-      }
-      //update prescription
-      else {
-        for (const property in prescription) {
-          if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
-            const number = property.substring(property.length - 1);
-            if (prescription[`quantityMedicine_${number}`] && prescription[property]) {
-              // const prescriptionUpdate = await db.Prescription.findOne({ where: { patientId: prescription.patientId } })
-              const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } });
-              // case not press medicine
-              //case name medicine same
-              //case update not add medicine
-              if (findMedicine.quantity < prescription[`quantityMedicine_${number}`]) {
-                errorNotEnough = true
-                console.log('check khong du thuoc')
-              }
-              else {
+        //update prescription
+        else {
+          for (const property in prescription) {
+            if (property.includes('nameMedicine_') === true && prescription[property] !== null) {
+              const number = property.substring(property.length - 1);
+              if (prescription[`quantityMedicine_${number}`] && prescription[property]) {
+                const findMedicine = await db.Medicine.findOne({ where: { name: prescription[property] } });
                 if (findPrescription[property] === prescription[property]) {
-                  // const isUpdateAddMedicine = false
                   if (findMedicine) {
                     quantityUpdate = findMedicine.quantity - prescription[`quantityMedicine_${number}`] + findPrescription[`quantityMedicine_${number}`];
                     await db.Medicine.update({ quantity: quantityUpdate }, { where: { name: prescription[property] } })
@@ -228,7 +231,6 @@ let handleAddPrescription = (prescription) => {
                     const quantityNameMedicineBeReplacedUpdate = findMedicineBeReplace.quantity - findPrescription[`quantityMedicine_${number}`];
                     await db.Medicine.update({ quantity: quantityNameMedicineReplacedUpdate }, { where: { name: prescription[property] } })
                     await db.Medicine.update({ quantity: quantityNameMedicineBeReplacedUpdate }, { where: { name: findPrescription[property] } })
-
                   }
                   //case update add medicine
                   else {
@@ -241,21 +243,21 @@ let handleAddPrescription = (prescription) => {
               }
             }
           }
-        }
-        if (errorNotEnough) {
           if (errorNotEnough) {
+            if (errorNotEnough) {
+              resovle({
+                errorCode: 1,
+                message: `không đủ thuốc`,
+              })
+            }
+          }
+          else {
+            await db.Prescription.update(prescription, { where: { patientId: prescription.patientId } });
             resovle({
-              errorCode: 1,
-              message: `không đủ thuốc`,
+              errorCode: 0,
+              message: 'ok',
             })
           }
-        }
-        else {
-          await db.Prescription.update(prescription, { where: { patientId: prescription.patientId } });
-          resovle({
-            errorCode: 0,
-            message: 'ok',
-          })
         }
       }
     }
